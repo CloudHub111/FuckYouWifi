@@ -1,0 +1,160 @@
+-- Gui To Lua for Exploit
+
+-- Instances:
+
+local FastExecutor = Instance.new("ScreenGui")
+local ExecHandler = Instance.new("Frame")
+local UICorner = Instance.new("UICorner")
+local SourceHandler = Instance.new("ScrollingFrame")
+local SourceContainer = Instance.new("TextBox")
+local UICorner_2 = Instance.new("UICorner")
+local ButtonContainer = Instance.new("Frame")
+local UIGridLayout = Instance.new("UIGridLayout")
+local TextButton = Instance.new("TextButton")
+local UICorner_3 = Instance.new("UICorner")
+local TextButton_2 = Instance.new("TextButton")
+local UICorner_4 = Instance.new("UICorner")
+local TextButton_3 = Instance.new("TextButton")
+local UICorner_5 = Instance.new("UICorner")
+
+-- Properties:
+
+FastExecutor.Name = "FastExecutor"
+FastExecutor.Enabled = false
+FastExecutor.Parent = gethui()
+
+ExecHandler.Active = true
+ExecHandler.BackgroundColor3 = Color3.fromRGB(41,41,41)
+ExecHandler.Name = "ExecHandler"
+ExecHandler.Size = UDim2.new(0.4000000059604645,0,0.4000000059604645,0)
+ExecHandler.Parent = FastExecutor
+
+UICorner.CornerRadius = UDim.new(0.10000000149011612,0)
+UICorner.Parent = ExecHandler
+
+SourceHandler.Active = true
+SourceHandler.BackgroundTransparency = 1
+SourceHandler.CanvasSize = UDim2.new(0,1107,0,956)
+SourceHandler.Name = "SourceHandler"
+SourceHandler.ScrollBarThickness = 6
+SourceHandler.Size = UDim2.new(0.800000011920929,0,0.8500000238418579,0)
+SourceHandler.Parent = ExecHandler
+
+SourceContainer.BackgroundColor3 = Color3.fromRGB(58,57,58)
+SourceContainer.CursorPosition = -1
+SourceContainer.Name = "SourceContainer"
+SourceContainer.PlaceholderText = "-- print(\"hello world\")"
+SourceContainer.Size = UDim2.new(1,0,1,0)
+SourceContainer.Text = ""
+SourceContainer.TextColor3 = Color3.fromRGB(255,255,255)
+SourceContainer.TextSize = 12
+SourceContainer.ClearTextOnFocus = false
+SourceContainer.TextXAlignment = Enum.TextXAlignment.Left
+SourceContainer.TextYAlignment = Enum.TextYAlignment.Top
+SourceContainer.Parent = SourceHandler
+
+UICorner_2.CornerRadius = UDim.new(0,5)
+UICorner_2.Parent = SourceContainer
+
+ButtonContainer.Active = true
+ButtonContainer.BackgroundTransparency = 1
+ButtonContainer.Name = "ButtonContainer"
+ButtonContainer.Position = UDim2.new(0.800000011920929,0,0.029999999329447746,0)
+ButtonContainer.Size = UDim2.new(0.20000000298023224,0,0.800000011920929,0)
+ButtonContainer.Parent = ExecHandler
+
+UIGridLayout.CellSize = UDim2.new(1,0,0.30000001192092896,0)
+UIGridLayout.Parent = ButtonContainer
+
+TextButton.BackgroundColor3 = Color3.fromRGB(84,84,85)
+TextButton.Text = "Execute"
+TextButton.TextColor3 = Color3.fromRGB(255,255,255)
+TextButton.TextSize = 12
+TextButton.Parent = ButtonContainer
+
+UICorner_3.CornerRadius = UDim.new(0.20000000298023224,0)
+UICorner_3.Parent = TextButton
+
+TextButton_2.BackgroundColor3 = Color3.fromRGB(84,84,85)
+TextButton_2.Text = "Clear"
+TextButton_2.TextColor3 = Color3.fromRGB(255,255,255)
+TextButton_2.TextSize = 12
+TextButton_2.Parent = ButtonContainer
+
+UICorner_4.CornerRadius = UDim.new(0.20000000298023224,0)
+UICorner_4.Parent = TextButton_2
+
+TextButton_3.BackgroundColor3 = Color3.fromRGB(84,84,85)
+TextButton_3.Text = "Close"
+TextButton_3.TextColor3 = Color3.fromRGB(255,255,255)
+TextButton_3.TextScaled = true
+TextButton_3.TextWrapped = true
+TextButton_3.Parent = ButtonContainer
+
+UICorner_5.CornerRadius = UDim.new(0.30000001192092896,0)
+UICorner_5.Parent = TextButton_3
+
+TextButton.MouseButton1Down:Connect(function()
+loadstring(SourceContainer.Text)()
+end)
+
+TextButton_2.MouseButton1Down:Connect(function()
+SourceContainer.Text=""
+end)
+
+TextButton_3.MouseButton1Down:Connect(function()
+FastExecutor.Enabled=false
+end)
+
+SourceContainer:GetPropertyChangedSignal("TextBounds"):Connect(function()
+SourceHandler.CanvasSize=UDim2.new(0,SourceContainer.TextBounds.X,0,SourceContainer.TextBounds.Y)
+end)
+
+game:GetService("CoreGui").TopBarApp.TopBarApp.UnibarLeftFrame.UnibarMenu.SubMenuHost.ChildAdded:Connect(function(v)
+if v.Name=="nine_dot" then
+v.AutomaticSize=Enum.AutomaticSize.None
+for i=1,5 do
+v.Size=UDim2.new(0,192,0,53*i)
+task.wait()
+end
+
+local canvas=v.ScrollingFrame.MainCanvas
+local res=canvas.respawn
+local clone=res:Clone()
+clone.Name="Fast_execute"
+clone.Parent=res.Parent
+
+clone.RowLabel.IconHost.IntegrationIconFrame.IntegrationIcon.Text="fast-executor-icon"
+clone.RowLabel.StyledTextLabel.Text="Fast execute"
+
+clone.MouseEnter:Connect(function()
+clone.BackgroundTransparency=0.88
+clone.BackgroundColor3=Color3.fromRGB(208, 217, 251)
+end)
+
+clone.MouseLeave:Connect(function()
+clone.BackgroundTransparency=1
+clone.BackgroundColor3=Color3.fromRGB(0,0,0)
+end)
+
+clone.MouseButton1Up:Connect(function()
+FastExecutor.Enabled=not FastExecutor.Enabled
+if FastExecutor.Enabled then
+clone.BackgroundTransparency=0.88
+clone.BackgroundColor3=Color3.fromRGB(208, 217, 251)
+else
+clone.BackgroundTransparency=1
+clone.BackgroundColor3=Color3.fromRGB(0,0,0)
+end
+end)
+
+for i=1,3 do
+local n1=5*i
+v.Size=UDim2.new(0,192,0,265+n1)
+task.wait()
+end
+
+canvas.CanvasSize=canvas.CanvasSize+UDim2.new(0,0,0,140)
+
+end
+end)
