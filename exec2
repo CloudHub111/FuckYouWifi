@@ -119,7 +119,7 @@ task.wait()
 end
 
 local canvas=v.ScrollingFrame.MainCanvas
-local res=canvas.respawn
+local res=canvas.respawn or canvas.trust_and_safety
 local clone=res:Clone()
 clone.Name="Fast_execute"
 clone.Parent=res.Parent
