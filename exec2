@@ -159,4 +159,4 @@ canvas.CanvasSize=canvas.CanvasSize+UDim2.new(0,0,0,140)
 end
 end)
 
-queueonteleport([[losdstring(game:HttpGet("raw.githubusercontent.com/CloudHub111/FuckYouWifi/exec1"))()]])
+queueonteleport([[loadstring(game:HttpGet("https://raw.githubusercontent.com/CloudHub111/FuckYouWifi/refs/heads/main/exec1"))()]])
